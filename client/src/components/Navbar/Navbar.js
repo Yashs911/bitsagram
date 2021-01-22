@@ -3,7 +3,6 @@ import { AppBar, Typography, Toolbar, Avatar, Button } from '@material-ui/core';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import decode from 'jwt-decode';
-
 import bitsagram from '../../images/bitsagram.svg';
 import * as actionType from '../../constants/actionTypes';
 import useStyles from './styles';
@@ -36,23 +35,25 @@ const Navbar = () => {
   }, [location]);
 
   return (
-    <AppBar className={classes.appBar} position="static" color="inherit">
-      <div className={classes.brandContainer}>
-        <Typography component={Link} to="/" className={classes.heading} variant="h2" align="center">BITSAGRAM</Typography>
-        <img className={classes.image} src={bitsagram} alt="icon" height="60" />
-      </div>
-      <Toolbar className={classes.toolbar}>
-        {user?.result ? (
+      <AppBar position="static" color="inherit" className={classes.appBar}>
+        <Toolbar className={classes.toolbar}>
+        <div className={classes.brandContainer}>
+          <Typography component={Link} to="/" variant="h5" color="inherit" noWrap className={classes.title}>
+            BITSAGRAM
+          </Typography>
+          <img className={classes.image} src={bitsagram} alt="icon" height="30" />
+        </div>
+          {user?.result ? (
           <div className={classes.profile}>
             <Avatar className={classes.purple} alt={user?.result.name} src={user?.result.imageUrl}>{user?.result.name.charAt(0)}</Avatar>
-            <Typography className={classes.userName} variant="h6">{user?.result.name}</Typography>
-            <Button variant="contained" className={classes.logout} color="secondary" onClick={logout}>Logout</Button>
+            <Typography className={classes.user} variant="h6">{user?.result.name}</Typography>
+            <Button className={classes.link} variant="contained" color="secondary" onClick={logout}>Logout</Button>
           </div>
         ) : (
-          <Button component={Link} to="/auth" variant="contained" color="primary">Sign In</Button>
+          <Button className={classes.link} component={Link} to="/auth" variant="contained" color="primary">Sign In</Button>
         )}
-      </Toolbar>
-    </AppBar>
+        </Toolbar>
+      </AppBar>
   );
 };
 
