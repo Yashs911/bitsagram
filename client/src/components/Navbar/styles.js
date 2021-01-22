@@ -28,7 +28,10 @@ export default makeStyles((theme) => ({
     textDecoration: 'none',
     flexGrow: 1,
   },
-  link: {
+  logout: {
+    margin: theme.spacing(1, 1.5),
+  },
+  button: {
     margin: theme.spacing(1, 1.5),
   },
   image: {
@@ -38,7 +41,7 @@ export default makeStyles((theme) => ({
     display: 'flex',
     margin: theme.spacing(1, 1.5),
   },
-  user: {
+  userName: {
     margin: theme.spacing(1, 1.5),
     whiteSpace: 'nowrap',
   },
