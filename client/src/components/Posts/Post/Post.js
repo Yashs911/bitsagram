@@ -1,5 +1,5 @@
-import React from 'react';
-import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@material-ui/core/';
+import React, { useState } from 'react';
+import { Card, CardActions, CardContent, CardMedia, Button, Typography, Menu, MenuItem } from '@material-ui/core/';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import DeleteIcon from '@material-ui/icons/Delete';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
@@ -14,6 +14,18 @@ const Post = ({ post, setCurrentId }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const user = JSON.parse(localStorage.getItem('profile'));
+
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState()
+
+  const recordButtonPosition = (event: any) => {
+      setAnchorEl(event.currentTarget);
+      setMenuOpen(true);
+  }
+
+  let closeMenu = () => {
+      setMenuOpen(false);
+  }
 
   const Likes = () => {
     if (post.likes.length > 0) {
@@ -37,9 +49,17 @@ const Post = ({ post, setCurrentId }) => {
       </div>
       {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
       <div className={classes.overlay2}>
-        <Button onClick={() => setCurrentId(post._id)} style={{ color: 'white' }} size="small">
-          <MoreHorizIcon fontSize="default" />
-        </Button>
+        <Button onClick={recordButtonPosition} style={{ color: 'white' }} >
+        <MoreHorizIcon fontSize="default" />
+          </Button>
+          <Menu
+              anchorEl={anchorEl}
+              open={menuOpen}
+              onClose={closeMenu}>
+              <Button onClick={() => setCurrentId(post._id)} style={{ color: 'white' }} size="small">
+                <Typography variant="body1" color="textPrimary" component="p">Edit</Typography>
+              </Button>
+          </Menu>
       </div>
       )}
       <div className={classes.details}>
